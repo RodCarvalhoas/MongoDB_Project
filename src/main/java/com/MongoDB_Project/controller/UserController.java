@@ -1,7 +1,5 @@
 package com.MongoDB_Project.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -11,19 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.MongoDB_Project.model.User;
+import com.MongoDB_Project.services.UserService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
+	
+	private UserService userService;
+	
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 	
 	@GetMapping	
 	public ResponseEntity<List<User>> findAll(){
-		User maria = new User("1", "Maria Brown", "Maria@gmail.com");
-		User alex = new User("2", "Alex Green", "Alex@gmail.com");
-		
-		List<User> list = new ArrayList<>();
-		list.addAll(Arrays.asList(maria,alex));
-		return ResponseEntity.status(HttpStatus.OK).body(list);
+		//List<User> list = userService.findAll();
+		return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
 	}
 
 }
