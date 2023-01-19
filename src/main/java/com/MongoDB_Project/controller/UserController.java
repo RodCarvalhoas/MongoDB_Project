@@ -3,9 +3,11 @@ package com.MongoDB_Project.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,4 +32,15 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(listDto);
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<Object> findById(@PathVariable String id){
+		User user = userService.findById(id);
+			UserDTO userDTO = new UserDTO();
+			BeanUtils.copyProperties(user, userDTO);
+			return ResponseEntity.status(HttpStatus.OK).body(userDTO);	
+		
+		
+	
+	}
+	
 }
