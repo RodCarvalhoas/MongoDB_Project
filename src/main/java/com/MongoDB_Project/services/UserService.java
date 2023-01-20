@@ -39,4 +39,11 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 	
+	@Transactional
+	public User updateUser(User user) {
+		findById(user.getId());
+		return userRepository.save(user);
+	}
+	
+	
 }
